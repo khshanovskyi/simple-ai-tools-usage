@@ -20,8 +20,8 @@ public class ChatApp {
                 Model.GPT_4o,
                 Constant.API_KEY,
                 List.of(
-                        //todo: 1. Provide tool for math simple calculations (ChatApp#generateMathToolDescription())
-                        //todo: 2. Provide tool for extraction NASA largest image description (ChatApp#generateMathToolDescription())
+                        generateMathToolDescription(),
+                        generateNasaToolStealerDescription()
                 )
         );
 
@@ -142,8 +142,24 @@ public class ChatApp {
      * </pre>
      */
     private static Map<String, Object> generateNasaToolStealerDescription() {
-        //todo: Provide description similar to JSON above.
-        //todo: Pay attention that function name is already present in constants (Constant.NASA_IMG_STEALER)
-        throw new RuntimeException("Not implemented");
+        return Map.of(
+                "type", "function",
+                "function", Map.of(
+                        "name", Constant.NASA_IMG_STEALER,
+                        "description", "This tool provides description of the largest NASA image by Mars sol.",
+                        "parameters", Map.of(
+                                "type", "object",
+                                "properties", Map.of(
+                                        "sol", Map.of(
+                                                "type", "integer",
+                                                "description", "Sol of Mars."
+                                        )
+                                ),
+                                "required", List.of("sol"),
+                                "additionalProperties", false
+                        ),
+                        "strict", true
+                )
+        );
     }
 }
