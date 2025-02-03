@@ -1,0 +1,56 @@
+{
+  "model" : "gpt-4o",
+  "messages" : [ {
+    "role" : "system",
+    "content" : "You are an advanced AI agent equipped with tools that will help you to provide NASA pictures description\nand do simple math calculations. Use this tools in your work."
+  }, {
+    "role" : "user",
+    "content" : "Find descriptions of largest NASA pictures for sol 401, 402 and 452 and tell me idf they have smth sumilar?"
+  } ],
+  "tools" : [ {
+    "function" : {
+      "strict" : true,
+      "parameters" : {
+        "required" : [ "num1", "num2", "operation" ],
+        "type" : "object",
+        "properties" : {
+          "num1" : {
+            "description" : "First operand.",
+            "type" : "number"
+          },
+          "num2" : {
+            "description" : "Second operand.",
+            "type" : "number"
+          },
+          "operation" : {
+            "enum" : [ "add", "subtract", "multiply", "divide" ],
+            "type" : "string",
+            "description" : "Operation that should be performed"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "name" : "simple_calculator",
+      "description" : "Provides results of the basic math calculations."
+    },
+    "type" : "function"
+  }, {
+    "function" : {
+      "strict" : true,
+      "parameters" : {
+        "required" : [ "sol" ],
+        "type" : "object",
+        "properties" : {
+          "sol" : {
+            "description" : "Sol of Mars.",
+            "type" : "integer"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "name" : "nasa_image_stealer",
+      "description" : "This tool provides description of the largest NASA image by Mars sol."
+    },
+    "type" : "function"
+  } ]
+}

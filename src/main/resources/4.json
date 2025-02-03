@@ -1,0 +1,71 @@
+{
+  "model" : "gpt-4o",
+  "messages" : [ {
+    "role" : "system",
+    "content" : "You are an advanced AI agent equipped with tools that will help you to provide NASA pictures description and do simple math calculations. Use this tools in your work."
+  }, {
+    "role" : "user",
+    "content" : "Find descriptions of largest NASA pictures for sol 401, 402 and 452 and tell me idf they have smth sumilar?"
+  }, {
+    "role" : "function",
+    "name" : "nasa_image_stealer",
+    "content" : "The image shows a close-up view of a rocky surface, likely from a planetary body such as Mars. The terrain consists of various particles and rocks with different textures and sizes, including some more rounded stones and fine-grained material. This kind of image is typically captured by rovers or landers exploring other planets to study their geology and surface composition.",
+    "tool_call_id" : "call_3nRECvJV0XSJmiYvMON4yvMN"
+  }, {
+    "role" : "function",
+    "name" : "nasa_image_stealer",
+    "content" : "The image depicts a Martian landscape featuring a sandy, reddish surface with scattered rocks and a gradient of colors in the terrain. This type of image is typically captured by rovers or orbiters exploring the surface of Mars, illustrating its geological features. The overall scene suggests a dry, arid environment characteristic of the Martian surface.",
+    "tool_call_id" : "call_0wzX5O2Ln3xdzhndI87dwrIe"
+  }, {
+    "role" : "function",
+    "name" : "nasa_image_stealer",
+    "content" : "No images found",
+    "tool_call_id" : "call_BY85tr88ClkrsOTmc2GT3TSe"
+  } ],
+  "tools" : [ {
+    "function" : {
+      "strict" : true,
+      "parameters" : {
+        "required" : [ "num1", "num2", "operation" ],
+        "type" : "object",
+        "properties" : {
+          "num1" : {
+            "description" : "First operand.",
+            "type" : "number"
+          },
+          "num2" : {
+            "description" : "Second operand.",
+            "type" : "number"
+          },
+          "operation" : {
+            "enum" : [ "add", "subtract", "multiply", "divide" ],
+            "type" : "string",
+            "description" : "Operation that should be performed"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "name" : "simple_calculator",
+      "description" : "Provides results of the basic math calculations."
+    },
+    "type" : "function"
+  }, {
+    "function" : {
+      "strict" : true,
+      "parameters" : {
+        "required" : [ "sol" ],
+        "type" : "object",
+        "properties" : {
+          "sol" : {
+            "description" : "Sol of Mars.",
+            "type" : "integer"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "name" : "nasa_image_stealer",
+      "description" : "This tool provides description of the largest NASA image by Mars sol."
+    },
+    "type" : "function"
+  } ]
+}

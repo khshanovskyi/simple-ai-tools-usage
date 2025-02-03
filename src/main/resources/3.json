@@ -1,0 +1,55 @@
+{
+  "id" : "chatcmpl-AwvufLT2OSoZOsheb0ZmChf9JV0Mq",
+  "object" : "chat.completion",
+  "created" : 1738609005,
+  "model" : "gpt-4o-2024-08-06",
+  "choices" : [ {
+    "index" : 0,
+    "message" : {
+      "role" : "assistant",
+      "content" : null,
+      "tool_calls" : [ {
+        "id" : "call_8Ob1TsUgcTNAcJVssQb674Wq",
+        "type" : "function",
+        "function" : {
+          "name" : "nasa_image_stealer",
+          "arguments" : "{\"sol\": 401}"
+        }
+      }, {
+        "id" : "call_EvRjSO3UzymUzu3JTDoDAKo0",
+        "type" : "function",
+        "function" : {
+          "name" : "nasa_image_stealer",
+          "arguments" : "{\"sol\": 402}"
+        }
+      }, {
+        "id" : "call_4cDp3JCD7JdD6bNE6YsZVyMY",
+        "type" : "function",
+        "function" : {
+          "name" : "nasa_image_stealer",
+          "arguments" : "{\"sol\": 452}"
+        }
+      } ],
+      "refusal" : null
+    },
+    "logprobs" : null,
+    "finish_reason" : "tool_calls"
+  } ],
+  "usage" : {
+    "prompt_tokens" : 177,
+    "completion_tokens" : 71,
+    "total_tokens" : 248,
+    "prompt_tokens_details" : {
+      "cached_tokens" : 0,
+      "audio_tokens" : 0
+    },
+    "completion_tokens_details" : {
+      "reasoning_tokens" : 0,
+      "audio_tokens" : 0,
+      "accepted_prediction_tokens" : 0,
+      "rejected_prediction_tokens" : 0
+    }
+  },
+  "service_tier" : "default",
+  "system_fingerprint" : "fp_50cad350e4"
+}
