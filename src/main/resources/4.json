@@ -1,71 +1,33 @@
 {
-  "model" : "gpt-4o",
-  "messages" : [ {
-    "role" : "system",
-    "content" : "You are an advanced AI agent equipped with tools that will help you to provide NASA pictures description and do simple math calculations. Use this tools in your work."
-  }, {
-    "role" : "user",
-    "content" : "Find descriptions of largest NASA pictures for sol 401, 402 and 452 and tell me idf they have smth sumilar?"
-  }, {
-    "role" : "function",
-    "name" : "nasa_image_stealer",
-    "content" : "The image shows a close-up view of a rocky surface, likely from a planetary body such as Mars. The terrain consists of various particles and rocks with different textures and sizes, including some more rounded stones and fine-grained material. This kind of image is typically captured by rovers or landers exploring other planets to study their geology and surface composition.",
-    "tool_call_id" : "call_3nRECvJV0XSJmiYvMON4yvMN"
-  }, {
-    "role" : "function",
-    "name" : "nasa_image_stealer",
-    "content" : "The image depicts a Martian landscape featuring a sandy, reddish surface with scattered rocks and a gradient of colors in the terrain. This type of image is typically captured by rovers or orbiters exploring the surface of Mars, illustrating its geological features. The overall scene suggests a dry, arid environment characteristic of the Martian surface.",
-    "tool_call_id" : "call_0wzX5O2Ln3xdzhndI87dwrIe"
-  }, {
-    "role" : "function",
-    "name" : "nasa_image_stealer",
-    "content" : "No images found",
-    "tool_call_id" : "call_BY85tr88ClkrsOTmc2GT3TSe"
+  "id" : "chatcmpl-AwwZ1uE2V80JfXkSYUfAlgW3gJiwa",
+  "object" : "chat.completion",
+  "created" : 1738611507,
+  "model" : "gpt-4o-2024-08-06",
+  "choices" : [ {
+    "index" : 0,
+    "message" : {
+      "role" : "assistant",
+      "content" : "I found the descriptions for the largest NASA images for sols 401 and 402, but there doesn't seem to be any image available for sol 452.\n\n- **Sol 401**: The image depicts a close-up view of a rocky surface with coarse particles and small rocks, displaying a dusty environment with shades of brown and gray, typical of Martian terrain.\n- **Sol 402**: This image also features a rocky and sandy Martian landscape with a variety of textures, smooth areas, and scattered rocks. It shows a slope or incline in the landscape with a reddish or tan soil backdrop.\n\n**Similarities**:\n- Both images showcase rocky surfaces with a variety of textures, common in Martian landscapes.\n- The color palettes in both images are characterized by shades of brown, gray, reddish, or tan, consistent with typical Martian terrain.\n- They both focus on geological features useful for studying Mars' surface composition. \n\nHowever, there is no image available for Sol 452 to compare with these descriptions.",
+      "refusal" : null
+    },
+    "logprobs" : null,
+    "finish_reason" : "stop"
   } ],
-  "tools" : [ {
-    "function" : {
-      "strict" : true,
-      "parameters" : {
-        "required" : [ "num1", "num2", "operation" ],
-        "type" : "object",
-        "properties" : {
-          "num1" : {
-            "description" : "First operand.",
-            "type" : "number"
-          },
-          "num2" : {
-            "description" : "Second operand.",
-            "type" : "number"
-          },
-          "operation" : {
-            "enum" : [ "add", "subtract", "multiply", "divide" ],
-            "type" : "string",
-            "description" : "Operation that should be performed"
-          }
-        },
-        "additionalProperties" : false
-      },
-      "name" : "simple_calculator",
-      "description" : "Provides results of the basic math calculations."
+  "usage" : {
+    "prompt_tokens" : 335,
+    "completion_tokens" : 207,
+    "total_tokens" : 542,
+    "prompt_tokens_details" : {
+      "cached_tokens" : 0,
+      "audio_tokens" : 0
     },
-    "type" : "function"
-  }, {
-    "function" : {
-      "strict" : true,
-      "parameters" : {
-        "required" : [ "sol" ],
-        "type" : "object",
-        "properties" : {
-          "sol" : {
-            "description" : "Sol of Mars.",
-            "type" : "integer"
-          }
-        },
-        "additionalProperties" : false
-      },
-      "name" : "nasa_image_stealer",
-      "description" : "This tool provides description of the largest NASA image by Mars sol."
-    },
-    "type" : "function"
-  } ]
+    "completion_tokens_details" : {
+      "reasoning_tokens" : 0,
+      "audio_tokens" : 0,
+      "accepted_prediction_tokens" : 0,
+      "rejected_prediction_tokens" : 0
+    }
+  },
+  "service_tier" : "default",
+  "system_fingerprint" : "fp_50cad350e4"
 }

@@ -20,10 +20,10 @@ import java.util.Map;
 public class ImageStealerTool {
     private final HttpClient httpClient;
     private final ObjectMapper mapper;
-    private final String apiKey;
+    private final String openAiApiKey;
 
-    public ImageStealerTool(String apiKey) {
-        this.apiKey = apiKey;
+    public ImageStealerTool(String openAiApiKey) {
+        this.openAiApiKey = openAiApiKey;
         this.httpClient = HttpClient.newBuilder()
                 .followRedirects(HttpClient.Redirect.ALWAYS)
                 .connectTimeout(Duration.ofSeconds(10))
@@ -54,6 +54,7 @@ public class ImageStealerTool {
     }
 
     private URI collectURI(int sol) {
+        if (Constant.NASA_API_KEY.isBlank()) throw new RuntimeException("Nasa API Key is blank");
         return URI.create(String.format("%s?sol=%d&api_key=%s",
                 Constant.NASA_API,
                 sol,
@@ -113,7 +114,7 @@ public class ImageStealerTool {
 
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(Constant.OPEN_AI_API_URI)
-                .header("Authorization", "Bearer " + apiKey)
+                .header("Authorization", "Bearer " + openAiApiKey)
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(requestBody)))
                 .build();

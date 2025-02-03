@@ -1,0 +1,305 @@
+Type your question or 'exit' to quit.
+> 489.4929*3564.111111
+REQUEST: {
+  "model" : "gpt-4o",
+  "messages" : [ {
+    "role" : "system",
+    "content" : "You are an advanced AI agent. Your goal is to assist user with his questions."
+  }, {
+    "role" : "user",
+    "content" : "489.4929*3564.111111"
+  } ],
+  "tools" : [ {
+    "function" : {
+      "strict" : true,
+      "parameters" : {
+        "required" : [ "num1", "num2", "operation" ],
+        "type" : "object",
+        "properties" : {
+          "num1" : {
+            "description" : "First operand.",
+            "type" : "number"
+          },
+          "num2" : {
+            "description" : "Second operand.",
+            "type" : "number"
+          },
+          "operation" : {
+            "type" : "string",
+            "description" : "Operation that should be performed",
+            "enum" : [ "add", "subtract", "multiply", "divide" ]
+          }
+        },
+        "additionalProperties" : false
+      },
+      "name" : "simple_calculator",
+      "description" : "Provides results of the basic math calculations."
+    },
+    "type" : "function"
+  }, {
+    "function" : {
+      "strict" : true,
+      "parameters" : {
+        "required" : [ "sol" ],
+        "type" : "object",
+        "properties" : {
+          "sol" : {
+            "description" : "Sol of Mars.",
+            "type" : "integer"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "name" : "nasa_image_stealer",
+      "description" : "This tool provides description of the largest NASA image by Mars sol."
+    },
+    "type" : "function"
+  } ]
+}
+RESPONSE: {
+  "id" : "chatcmpl-Awwv0X11UXJ1f3Jp2OBNrXv8exiTb",
+  "object" : "chat.completion",
+  "created" : 1738612870,
+  "model" : "gpt-4o-2024-08-06",
+  "choices" : [ {
+    "index" : 0,
+    "message" : {
+      "role" : "assistant",
+      "content" : null,
+      "tool_calls" : [ {
+        "id" : "call_Z2wle3Dl9FCun2UcXMdGdRqh",
+        "type" : "function",
+        "function" : {
+          "name" : "simple_calculator",
+          "arguments" : "{\"num1\":489.4929,\"num2\":3564.111111,\"operation\":\"multiply\"}"
+        }
+      } ],
+      "refusal" : null
+    },
+    "logprobs" : null,
+    "finish_reason" : "tool_calls"
+  } ],
+  "usage" : {
+    "prompt_tokens" : 144,
+    "completion_tokens" : 33,
+    "total_tokens" : 177,
+    "prompt_tokens_details" : {
+      "cached_tokens" : 0,
+      "audio_tokens" : 0
+    },
+    "completion_tokens_details" : {
+      "reasoning_tokens" : 0,
+      "audio_tokens" : 0,
+      "accepted_prediction_tokens" : 0,
+      "rejected_prediction_tokens" : 0
+    }
+  },
+  "service_tier" : "default",
+  "system_fingerprint" : "fp_50cad350e4"
+}
+FUNCTION 'simple_calculator': Result: 1744607.083645612
+REQUEST: {
+  "model" : "gpt-4o",
+  "messages" : [ {
+    "role" : "system",
+    "content" : "You are an advanced AI agent. Your goal is to assist user with his questions."
+  }, {
+    "role" : "user",
+    "content" : "489.4929*3564.111111"
+  }, {
+    "role" : "function",
+    "name" : "simple_calculator",
+    "content" : "Result: 1744607.083645612",
+    "tool_call_id" : "call_Z2wle3Dl9FCun2UcXMdGdRqh"
+  } ],
+  "tools" : [ {
+    "function" : {
+      "strict" : true,
+      "parameters" : {
+        "required" : [ "num1", "num2", "operation" ],
+        "type" : "object",
+        "properties" : {
+          "num1" : {
+            "description" : "First operand.",
+            "type" : "number"
+          },
+          "num2" : {
+            "description" : "Second operand.",
+            "type" : "number"
+          },
+          "operation" : {
+            "type" : "string",
+            "description" : "Operation that should be performed",
+            "enum" : [ "add", "subtract", "multiply", "divide" ]
+          }
+        },
+        "additionalProperties" : false
+      },
+      "name" : "simple_calculator",
+      "description" : "Provides results of the basic math calculations."
+    },
+    "type" : "function"
+  }, {
+    "function" : {
+      "strict" : true,
+      "parameters" : {
+        "required" : [ "sol" ],
+        "type" : "object",
+        "properties" : {
+          "sol" : {
+            "description" : "Sol of Mars.",
+            "type" : "integer"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "name" : "nasa_image_stealer",
+      "description" : "This tool provides description of the largest NASA image by Mars sol."
+    },
+    "type" : "function"
+  } ]
+}
+RESPONSE: {
+  "id" : "chatcmpl-Awwv1F9ukhPWsc2rrUu6yvnp6h0vV",
+  "object" : "chat.completion",
+  "created" : 1738612871,
+  "model" : "gpt-4o-2024-08-06",
+  "choices" : [ {
+    "index" : 0,
+    "message" : {
+      "role" : "assistant",
+      "content" : null,
+      "tool_calls" : [ {
+        "id" : "call_uwftt5sGm3F2wAoTEfFcrGiw",
+        "type" : "function",
+        "function" : {
+          "name" : "simple_calculator",
+          "arguments" : "{\"num1\":489.4929,\"num2\":3564.111111,\"operation\":\"multiply\"}"
+        }
+      } ],
+      "refusal" : null
+    },
+    "logprobs" : null,
+    "finish_reason" : "tool_calls"
+  } ],
+  "usage" : {
+    "prompt_tokens" : 160,
+    "completion_tokens" : 33,
+    "total_tokens" : 193,
+    "prompt_tokens_details" : {
+      "cached_tokens" : 0,
+      "audio_tokens" : 0
+    },
+    "completion_tokens_details" : {
+      "reasoning_tokens" : 0,
+      "audio_tokens" : 0,
+      "accepted_prediction_tokens" : 0,
+      "rejected_prediction_tokens" : 0
+    }
+  },
+  "service_tier" : "default",
+  "system_fingerprint" : "fp_50cad350e4"
+}
+FUNCTION 'simple_calculator': Result: 1744607.083645612
+REQUEST: {
+  "model" : "gpt-4o",
+  "messages" : [ {
+    "role" : "system",
+    "content" : "You are an advanced AI agent. Your goal is to assist user with his questions."
+  }, {
+    "role" : "user",
+    "content" : "489.4929*3564.111111"
+  }, {
+    "role" : "function",
+    "name" : "simple_calculator",
+    "content" : "Result: 1744607.083645612",
+    "tool_call_id" : "call_Z2wle3Dl9FCun2UcXMdGdRqh"
+  }, {
+    "role" : "function",
+    "name" : "simple_calculator",
+    "content" : "Result: 1744607.083645612",
+    "tool_call_id" : "call_uwftt5sGm3F2wAoTEfFcrGiw"
+  } ],
+  "tools" : [ {
+    "function" : {
+      "strict" : true,
+      "parameters" : {
+        "required" : [ "num1", "num2", "operation" ],
+        "type" : "object",
+        "properties" : {
+          "num1" : {
+            "description" : "First operand.",
+            "type" : "number"
+          },
+          "num2" : {
+            "description" : "Second operand.",
+            "type" : "number"
+          },
+          "operation" : {
+            "type" : "string",
+            "description" : "Operation that should be performed",
+            "enum" : [ "add", "subtract", "multiply", "divide" ]
+          }
+        },
+        "additionalProperties" : false
+      },
+      "name" : "simple_calculator",
+      "description" : "Provides results of the basic math calculations."
+    },
+    "type" : "function"
+  }, {
+    "function" : {
+      "strict" : true,
+      "parameters" : {
+        "required" : [ "sol" ],
+        "type" : "object",
+        "properties" : {
+          "sol" : {
+            "description" : "Sol of Mars.",
+            "type" : "integer"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "name" : "nasa_image_stealer",
+      "description" : "This tool provides description of the largest NASA image by Mars sol."
+    },
+    "type" : "function"
+  } ]
+}
+RESPONSE: {
+  "id" : "chatcmpl-Awwv3sQZtVyqhSaNpmPmW44sgtQoR",
+  "object" : "chat.completion",
+  "created" : 1738612873,
+  "model" : "gpt-4o-2024-08-06",
+  "choices" : [ {
+    "index" : 0,
+    "message" : {
+      "role" : "assistant",
+      "content" : "The result of multiplying 489.4929 by 3564.111111 is approximately 1,744,607.0836.",
+      "refusal" : null
+    },
+    "logprobs" : null,
+    "finish_reason" : "stop"
+  } ],
+  "usage" : {
+    "prompt_tokens" : 176,
+    "completion_tokens" : 30,
+    "total_tokens" : 206,
+    "prompt_tokens_details" : {
+      "cached_tokens" : 0,
+      "audio_tokens" : 0
+    },
+    "completion_tokens_details" : {
+      "reasoning_tokens" : 0,
+      "audio_tokens" : 0,
+      "accepted_prediction_tokens" : 0,
+      "rejected_prediction_tokens" : 0
+    }
+  },
+  "service_tier" : "default",
+  "system_fingerprint" : "fp_50cad350e4"
+}
+AI: The result of multiplying 489.4929 by 3564.111111 is approximately 1,744,607.0836.
+
+>

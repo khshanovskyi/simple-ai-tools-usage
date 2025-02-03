@@ -57,25 +57,7 @@ public class OpenAIClient {
         //todo:      and then call recursively `responseWithMessage(List<Message> messages)` (it will provide final response)
         //todo: 9.2. Otherwise return Message with AI response (feel free to use builder)
 
-        ObjectNode request = createRequest(messages);
-        System.out.println("REQUEST: " + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(request));
-        HttpRequest httpRequest = generateRequest(request);
-
-        String responseBody = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString()).body();
-        JsonNode responseJson = mapper.readTree(responseBody);
-        System.out.println("RESPONSE: " + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(responseJson));
-        JsonNode message = responseJson.get("choices").get(0).get("message");
-
-        JsonNode toolCalls = message.get("tool_calls");
-        if (toolCalls != null && toolCalls.isArray() && !toolCalls.isEmpty()) {
-            processToolCalls(messages, toolCalls);
-            return responseWithMessage(messages);
-        } else {
-            return Message.builder()
-                    .role(Role.AI)
-                    .content(message.get("content").asText())
-                    .build();
-        }
+        throw new RuntimeException("Not implemented");
     }
 
     private ObjectNode createRequest(List<Message> messages) {
@@ -85,17 +67,7 @@ public class OpenAIClient {
         //todo: 4. If `this.tools` are present ->  add `tools` to request (mapper.valueToTree(tools))
         //todo: 5. Return request
 
-        ObjectNode request = mapper.createObjectNode();
-        request.put("model", this.model.getValue());
-        ArrayNode messageArray = mapper.valueToTree(messages);
-        request.set("messages", messageArray);
-
-        if (tools != null && !tools.isEmpty()) {
-            ArrayNode toolsArray = mapper.valueToTree(tools);
-            request.set("tools", toolsArray);
-        }
-
-        return request;
+        throw new RuntimeException("Not implemented");
     }
 
     private HttpRequest generateRequest(ObjectNode requestBody) throws JsonProcessingException {
@@ -126,25 +98,7 @@ public class OpenAIClient {
         //todo:     - content: execution result
         //todo: (Optional) print generated response to console, it will help to see function result
 
-        for (JsonNode toolCall : toolCalls) {
-            String id = toolCall.get("id").asText();
-            JsonNode functionNode = toolCall.get("function");
-            String functionName = functionNode.get("name").asText();
-            JsonNode arguments = mapper.readTree(functionNode.get("arguments").asText());
-
-            String result = executeTool(functionName, arguments);
-
-            messages.add(
-                    Message.builder()
-                    .role(Role.FUNCTION)
-                    .name(functionName)
-                    .toolCallId(id)
-                    .content(result)
-                    .build()
-            );
-
-            System.out.println("FUNCTION '" + functionName + "': " + result);
-        }
+        throw new RuntimeException("Not implemented");
     }
 
     private String executeTool(String functionName, JsonNode arguments) {
@@ -154,11 +108,8 @@ public class OpenAIClient {
         //todo: Case `nasa_image_stealer` -> MathTool.calculateExpression(arguments)
         //todo: default case -> throw IllegalArgumentEx with state that `Unknown function` + functionName
         //todo: Use Constants from Constant class instead of magic strings
-        return switch (functionName) {
-            case Constant.SIMPLE_CALCULATOR -> MathTool.calculateExpression(arguments);
-            case Constant.NASA_IMG_STEALER -> new ImageStealerTool(apiKey).getLargestMarsImageDescription(arguments);
-            default -> throw new IllegalArgumentException("Unknown function: " + functionName);
-        };
+
+        throw new RuntimeException("Not implemented");
     }
 
 }
