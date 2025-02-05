@@ -1,0 +1,317 @@
+/Users/pavlokhshanovskyi/Library/Java/JavaVirtualMachines/openjdk-23.0.1/Contents/Home/bin/java -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=52567:/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath /Users/pavlokhshanovskyi/IdeaProjects/codeus/my/simple-ai-tools-usage/simple-ai-tools-usage/target/classes:/Users/pavlokhshanovskyi/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar:/Users/pavlokhshanovskyi/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar:/Users/pavlokhshanovskyi/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar:/Users/pavlokhshanovskyi/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar task.ChatApp
+Type your question or 'exit' to quit.
+> Find descriptions of largest NASA pictures for sol (10*40 (calculate it)) and tell me idf they have smth similar?
+REQUEST: {
+  "model" : "gpt-4o",
+  "messages" : [ {
+    "role" : "system",
+    "content" : "You are an advanced AI agent. Your goal is to assist user with his questions."
+  }, {
+    "role" : "user",
+    "content" : "Find descriptions of largest NASA pictures for sol (10*40 (calculate it)) and tell me idf they have smth similar?"
+  } ],
+  "tools" : [ {
+    "type" : "function",
+    "function" : {
+      "description" : "Provides results of the basic math calculations.",
+      "name" : "simple_calculator",
+      "parameters" : {
+        "additionalProperties" : false,
+        "properties" : {
+          "operation" : {
+            "description" : "Operation that should be performed",
+            "type" : "string",
+            "enum" : [ "add", "subtract", "multiply", "divide" ]
+          },
+          "num2" : {
+            "type" : "number",
+            "description" : "Second operand."
+          },
+          "num1" : {
+            "type" : "number",
+            "description" : "First operand."
+          }
+        },
+        "type" : "object",
+        "required" : [ "num1", "num2", "operation" ]
+      },
+      "strict" : true
+    }
+  }, {
+    "type" : "function",
+    "function" : {
+      "description" : "This tool provides description of the largest NASA image by Mars sol.",
+      "name" : "nasa_image_stealer",
+      "parameters" : {
+        "additionalProperties" : false,
+        "properties" : {
+          "sol" : {
+            "type" : "integer",
+            "description" : "Sol of Mars."
+          }
+        },
+        "type" : "object",
+        "required" : [ "sol" ]
+      },
+      "strict" : true
+    }
+  } ]
+}
+RESPONSE: {
+  "id" : "chatcmpl-AxgfAoLzjqIrtM2XiQyuLsKANnVZJ",
+  "object" : "chat.completion",
+  "created" : 1738788712,
+  "model" : "gpt-4o-2024-08-06",
+  "choices" : [ {
+    "index" : 0,
+    "message" : {
+      "role" : "assistant",
+      "content" : null,
+      "tool_calls" : [ {
+        "id" : "call_C3RywPl3aygkiE0j19gtFov9",
+        "type" : "function",
+        "function" : {
+          "name" : "simple_calculator",
+          "arguments" : "{\"operation\":\"multiply\",\"num2\":40,\"num1\":10}"
+        }
+      } ],
+      "refusal" : null
+    },
+    "logprobs" : null,
+    "finish_reason" : "tool_calls"
+  } ],
+  "usage" : {
+    "prompt_tokens" : 161,
+    "completion_tokens" : 26,
+    "total_tokens" : 187,
+    "prompt_tokens_details" : {
+      "cached_tokens" : 0,
+      "audio_tokens" : 0
+    },
+    "completion_tokens_details" : {
+      "reasoning_tokens" : 0,
+      "audio_tokens" : 0,
+      "accepted_prediction_tokens" : 0,
+      "rejected_prediction_tokens" : 0
+    }
+  },
+  "service_tier" : "default",
+  "system_fingerprint" : "fp_50cad350e4"
+}
+FUNCTION 'simple_calculator': Result: 400.0
+REQUEST: {
+  "model" : "gpt-4o",
+  "messages" : [ {
+    "role" : "system",
+    "content" : "You are an advanced AI agent. Your goal is to assist user with his questions."
+  }, {
+    "role" : "user",
+    "content" : "Find descriptions of largest NASA pictures for sol (10*40 (calculate it)) and tell me idf they have smth similar?"
+  }, {
+    "role" : "assistant",
+    "content" : "{\"id\":\"call_C3RywPl3aygkiE0j19gtFov9\",\"type\":\"function\",\"function\":{\"name\":\"simple_calculator\",\"arguments\":\"{\\\"operation\\\":\\\"multiply\\\",\\\"num2\\\":40,\\\"num1\\\":10}\"}}"
+  }, {
+    "role" : "function",
+    "name" : "simple_calculator",
+    "content" : "Result: 400.0",
+    "tool_call_id" : "call_C3RywPl3aygkiE0j19gtFov9"
+  } ],
+  "tools" : [ {
+    "type" : "function",
+    "function" : {
+      "description" : "Provides results of the basic math calculations.",
+      "name" : "simple_calculator",
+      "parameters" : {
+        "additionalProperties" : false,
+        "properties" : {
+          "operation" : {
+            "description" : "Operation that should be performed",
+            "type" : "string",
+            "enum" : [ "add", "subtract", "multiply", "divide" ]
+          },
+          "num2" : {
+            "type" : "number",
+            "description" : "Second operand."
+          },
+          "num1" : {
+            "type" : "number",
+            "description" : "First operand."
+          }
+        },
+        "type" : "object",
+        "required" : [ "num1", "num2", "operation" ]
+      },
+      "strict" : true
+    }
+  }, {
+    "type" : "function",
+    "function" : {
+      "description" : "This tool provides description of the largest NASA image by Mars sol.",
+      "name" : "nasa_image_stealer",
+      "parameters" : {
+        "additionalProperties" : false,
+        "properties" : {
+          "sol" : {
+            "type" : "integer",
+            "description" : "Sol of Mars."
+          }
+        },
+        "type" : "object",
+        "required" : [ "sol" ]
+      },
+      "strict" : true
+    }
+  } ]
+}
+RESPONSE: {
+  "id" : "chatcmpl-AxgfC2Gxw1LhOfmQKpICjGP4274Gn",
+  "object" : "chat.completion",
+  "created" : 1738788714,
+  "model" : "gpt-4o-2024-08-06",
+  "choices" : [ {
+    "index" : 0,
+    "message" : {
+      "role" : "assistant",
+      "content" : null,
+      "tool_calls" : [ {
+        "id" : "call_P7CK0idAQ1UjCVD9NoTddg8V",
+        "type" : "function",
+        "function" : {
+          "name" : "nasa_image_stealer",
+          "arguments" : "{\"sol\":400}"
+        }
+      } ],
+      "refusal" : null
+    },
+    "logprobs" : null,
+    "finish_reason" : "tool_calls"
+  } ],
+  "usage" : {
+    "prompt_tokens" : 229,
+    "completion_tokens" : 19,
+    "total_tokens" : 248,
+    "prompt_tokens_details" : {
+      "cached_tokens" : 0,
+      "audio_tokens" : 0
+    },
+    "completion_tokens_details" : {
+      "reasoning_tokens" : 0,
+      "audio_tokens" : 0,
+      "accepted_prediction_tokens" : 0,
+      "rejected_prediction_tokens" : 0
+    }
+  },
+  "service_tier" : "default",
+  "system_fingerprint" : "fp_50cad350e4"
+}
+FUNCTION 'nasa_image_stealer': The image appears to show a close-up of a rocky or sandy surface. It features various sizes of grains and pebbles, with a texture that suggests a natural, possibly planetary surface, such as that found on Mars or another celestial body. The colors are muted earth tones, indicating a dry, dusty environment.
+REQUEST: {
+  "model" : "gpt-4o",
+  "messages" : [ {
+    "role" : "system",
+    "content" : "You are an advanced AI agent. Your goal is to assist user with his questions."
+  }, {
+    "role" : "user",
+    "content" : "Find descriptions of largest NASA pictures for sol (10*40 (calculate it)) and tell me idf they have smth similar?"
+  }, {
+    "role" : "assistant",
+    "content" : "{\"id\":\"call_C3RywPl3aygkiE0j19gtFov9\",\"type\":\"function\",\"function\":{\"name\":\"simple_calculator\",\"arguments\":\"{\\\"operation\\\":\\\"multiply\\\",\\\"num2\\\":40,\\\"num1\\\":10}\"}}"
+  }, {
+    "role" : "function",
+    "name" : "simple_calculator",
+    "content" : "Result: 400.0",
+    "tool_call_id" : "call_C3RywPl3aygkiE0j19gtFov9"
+  }, {
+    "role" : "assistant",
+    "content" : "{\"id\":\"call_P7CK0idAQ1UjCVD9NoTddg8V\",\"type\":\"function\",\"function\":{\"name\":\"nasa_image_stealer\",\"arguments\":\"{\\\"sol\\\":400}\"}}"
+  }, {
+    "role" : "function",
+    "name" : "nasa_image_stealer",
+    "content" : "The image appears to show a close-up of a rocky or sandy surface. It features various sizes of grains and pebbles, with a texture that suggests a natural, possibly planetary surface, such as that found on Mars or another celestial body. The colors are muted earth tones, indicating a dry, dusty environment.",
+    "tool_call_id" : "call_P7CK0idAQ1UjCVD9NoTddg8V"
+  } ],
+  "tools" : [ {
+    "type" : "function",
+    "function" : {
+      "description" : "Provides results of the basic math calculations.",
+      "name" : "simple_calculator",
+      "parameters" : {
+        "additionalProperties" : false,
+        "properties" : {
+          "operation" : {
+            "description" : "Operation that should be performed",
+            "type" : "string",
+            "enum" : [ "add", "subtract", "multiply", "divide" ]
+          },
+          "num2" : {
+            "type" : "number",
+            "description" : "Second operand."
+          },
+          "num1" : {
+            "type" : "number",
+            "description" : "First operand."
+          }
+        },
+        "type" : "object",
+        "required" : [ "num1", "num2", "operation" ]
+      },
+      "strict" : true
+    }
+  }, {
+    "type" : "function",
+    "function" : {
+      "description" : "This tool provides description of the largest NASA image by Mars sol.",
+      "name" : "nasa_image_stealer",
+      "parameters" : {
+        "additionalProperties" : false,
+        "properties" : {
+          "sol" : {
+            "type" : "integer",
+            "description" : "Sol of Mars."
+          }
+        },
+        "type" : "object",
+        "required" : [ "sol" ]
+      },
+      "strict" : true
+    }
+  } ]
+}
+RESPONSE: {
+  "id" : "chatcmpl-AxgfRZEiIXNT3k0nTHEUKLVFdEtjP",
+  "object" : "chat.completion",
+  "created" : 1738788729,
+  "model" : "gpt-4o-2024-08-06",
+  "choices" : [ {
+    "index" : 0,
+    "message" : {
+      "role" : "assistant",
+      "content" : "The largest NASA picture for Sol 400 features a close-up of a rocky or sandy surface. It showcases various sizes of grains and pebbles, with textures suggesting a natural planetary surface, likely Mars. The colors are muted earth tones, indicating a dry, dusty environment. \n\nIf you'd like me to find images for other Sols for comparison or explore further, let me know!",
+      "refusal" : null
+    },
+    "logprobs" : null,
+    "finish_reason" : "stop"
+  } ],
+  "usage" : {
+    "prompt_tokens" : 351,
+    "completion_tokens" : 79,
+    "total_tokens" : 430,
+    "prompt_tokens_details" : {
+      "cached_tokens" : 0,
+      "audio_tokens" : 0
+    },
+    "completion_tokens_details" : {
+      "reasoning_tokens" : 0,
+      "audio_tokens" : 0,
+      "accepted_prediction_tokens" : 0,
+      "rejected_prediction_tokens" : 0
+    }
+  },
+  "service_tier" : "default",
+  "system_fingerprint" : "fp_50cad350e4"
+}
+AI: The largest NASA picture for Sol 400 features a close-up of a rocky or sandy surface. It showcases various sizes of grains and pebbles, with textures suggesting a natural planetary surface, likely Mars. The colors are muted earth tones, indicating a dry, dusty environment. 
+
+If you'd like me to find images for other Sols for comparison or explore further, let me know!
+
+> 
