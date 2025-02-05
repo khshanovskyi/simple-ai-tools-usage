@@ -51,10 +51,12 @@ public class OpenAIClient {
         //todo: 6. (Optional) print generated response to console, it will help to see JSON response
         //todo:              you can use `mapper.writerWithDefaultPrettyPrinter().writeValueAsString(response))`
         //todo:              or `mapper.writeValueAsString(response))`
-        //todo: 7. Get `message` as JsonNode (choices[0]message)
-        //todo: 8. Get `tool_calls` as JsonNode
-        //todo: 9.1. If tool_calls are present, call processToolCalls(List<Message> messages, JsonNode toolCalls)
-        //todo:      and then call recursively `responseWithMessage(List<Message> messages)` (it will provide final response)
+        //todo: 7. Get first choice as JsonNode (choices[0]) as choice JsonNode
+        //todo: 8. Get `message` as JsonNode
+        //todo: 9.1. If tool_calls are present (`finish_reason` is `tool_calls`):
+        //todo:      - get JsonNode `tool_calls`
+        //todo:      - call processToolCalls(List<Message> messages, JsonNode toolCalls)
+        //todo:      - then call recursively `responseWithMessage(List<Message> messages)` (it will provide final response)
         //todo: 9.2. Otherwise return Message with AI response (feel free to use builder)
 
         throw new RuntimeException("Not implemented");
@@ -75,12 +77,8 @@ public class OpenAIClient {
         //todo: - Add token
         //todo: - Add content type
         //todo: - Make POST request with `requestBody` as string
-        return HttpRequest.newBuilder()
-                .uri(Constant.OPEN_AI_API_URI)
-                .header("Authorization", "Bearer " + apiKey)
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(requestBody)))
-                .build();
+
+        throw new RuntimeException("Not implemented");
     }
 
     private void processToolCalls(List<Message> messages, JsonNode toolCalls) throws JsonProcessingException {
