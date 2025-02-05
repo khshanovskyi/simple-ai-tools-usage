@@ -89,6 +89,16 @@ public class OpenAIClient {
 
     private void processToolCalls(List<Message> messages, JsonNode toolCalls) throws JsonProcessingException {
         for (JsonNode toolCall : toolCalls) {
+            messages.add(
+                    Message.builder()
+                            .role(Role.AI)
+                            .content(mapper.writeValueAsString(toolCall))
+                            .build()
+            );
+        }
+
+        for (JsonNode toolCall : toolCalls) {
+
             String id = toolCall.get("id").asText();
             JsonNode functionNode = toolCall.get("function");
             String functionName = functionNode.get("name").asText();
