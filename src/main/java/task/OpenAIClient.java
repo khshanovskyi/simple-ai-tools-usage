@@ -82,7 +82,9 @@ public class OpenAIClient {
     }
 
     private void processToolCalls(List<Message> messages, JsonNode toolCalls) throws JsonProcessingException {
-        //todo: Iterate through `toolCalls`
+        //todo: 1. Iterate through `toolCalls` and add to messages list AI responses with tools calls. It is important
+        //todo:    to LLM for preserving and comprehending context.
+        //todo: 2. Iterate through `toolCalls`
         //todo: Get:
         //todo:     - tool call id
         //todo:     - function name
