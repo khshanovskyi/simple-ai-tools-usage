@@ -48,18 +48,20 @@ public class OpenAIClient {
         String responseBody = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString()).body();
         JsonNode responseJson = mapper.readTree(responseBody);
         System.out.println("RESPONSE: " + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(responseJson));
-        JsonNode message = responseJson.get("choices").get(0).get("message");
+        JsonNode choice = responseJson.get("choices").get(0);
+        JsonNode message = choice.get("message");
 
-        JsonNode toolCalls = message.get("tool_calls");
-        if (toolCalls != null && toolCalls.isArray() && !toolCalls.isEmpty()) {
-            processToolCalls(messages, toolCalls);
-            return responseWithMessage(messages);
-        } else {
-            return Message.builder()
+        if (choice.get("finish_reason").asText().equals("tool_calls")) {
+            JsonNode toolCalls = message.get("tool_calls");
+            if (toolCalls != null) {
+                processToolCalls(messages, toolCalls);
+                return responseWithMessage(messages);
+            }
+        }
+        return Message.builder()
                     .role(Role.AI)
                     .content(message.get("content").asText())
                     .build();
-        }
     }
 
     private ObjectNode createRequest(List<Message> messages) {
