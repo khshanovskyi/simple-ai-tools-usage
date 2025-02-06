@@ -21,7 +21,7 @@ public class ChatApp {
                 Constant.API_KEY,
                 List.of(
                         //todo: 1. Provide tool for math simple calculations (ChatApp#generateMathToolDescription())
-                        //todo: 2. Provide tool for extraction NASA largest image description (ChatApp#generateMathToolDescription())
+                        //todo: 2. Provide tool for extraction NASA largest image description (ChatApp#generateNasaToolStealerDescription())
                 )
         );
 
