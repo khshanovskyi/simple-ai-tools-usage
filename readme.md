@@ -7,10 +7,10 @@
 
 ## You need to implement:
 1. Add Open AI and NASA API keys in `Constant` class
-2. `ChatApp`, see `todo`
-3. `OpenAIClient`, see `todo`
+2. `ChatApp`, implement all the flow described in `todo`
+3. `OpenAIClient`, implement all the flow described in `todo`
 
-### You can check the conversation requests and response samples in the `resources` forlsed
+### You can check the conversation requests and response samples in the `resources` folder
 
 
 ## Request sample:
