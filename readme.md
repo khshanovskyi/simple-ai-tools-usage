@@ -14,8 +14,8 @@
 
 
 ## Request sample:
-> Find descriptions of largest NASA pictures for sol 401, 402 and 452 and tell me idf they have smth similar?
+> Find descriptions of largest NASA pictures for sol 401, 402 and 452 and tell me if they have smth similar?
 
 > 489.4929 * 3564.111111
 
-> Find descriptions of largest NASA pictures for sol (10*40 (calculate it)) and tell me idf they have smth similar?
+> Find descriptions of largest NASA pictures for sol (10*40 (calculate it)) and tell me if they have smth similar?

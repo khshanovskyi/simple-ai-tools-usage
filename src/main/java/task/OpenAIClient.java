@@ -8,8 +8,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import task.dto.Message;
 import task.dto.Model;
 import task.dto.Role;
+import task.tools.HokueGeneratorTool;
 import task.tools.ImageStealerTool;
 import task.tools.MathTool;
+import task.tools.WebSearchTool;
 import task.utils.Constant;
 
 import java.net.http.HttpClient;
@@ -123,6 +125,8 @@ public class OpenAIClient {
         return switch (functionName) {
             case Constant.SIMPLE_CALCULATOR -> MathTool.calculateExpression(arguments);
             case Constant.NASA_IMG_STEALER -> new ImageStealerTool(apiKey).getLargestMarsImageDescription(arguments);
+            case Constant.HAIKU_GENERATOR -> new HokueGeneratorTool(apiKey).generateHokue(arguments);
+            case Constant.WEB_SEARCH -> new WebSearchTool(apiKey).search(arguments);
             default -> throw new IllegalArgumentException("Unknown function: " + functionName);
         };
     }

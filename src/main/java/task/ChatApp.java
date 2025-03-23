@@ -21,7 +21,9 @@ public class ChatApp {
                 Constant.API_KEY,
                 List.of(
                         generateMathToolDescription(),
-                        generateNasaToolStealerDescription()
+                        generateNasaToolStealerDescription(),
+                        hokueQueryToolDescription(),
+                        searchToolDescription()
                 )
         );
 
@@ -156,6 +158,50 @@ public class ChatApp {
                                         )
                                 ),
                                 "required", List.of("sol"),
+                                "additionalProperties", false
+                        ),
+                        "strict", true
+                )
+        );
+    }
+
+    private static Map<String, Object> hokueQueryToolDescription() {
+        return Map.of(
+                "type", "function",
+                "function", Map.of(
+                        "name", Constant.HAIKU_GENERATOR,
+                        "description", "Special tool that super experienced in Haiku generation on the Ukrainian language.",
+                        "parameters", Map.of(
+                                "type", "object",
+                                "properties", Map.of(
+                                        "query", Map.of(
+                                                "type", "string",
+                                                "description", "Description of Haiku that should be generated"
+                                        )
+                                ),
+                                "required", List.of("query"),
+                                "additionalProperties", false
+                        ),
+                        "strict", true
+                )
+        );
+    }
+
+    private static Map<String, Object> searchToolDescription() {
+        return Map.of(
+                "type", "function",
+                "function", Map.of(
+                        "name", Constant.WEB_SEARCH,
+                        "description", "Tool for WEB searching.",
+                        "parameters", Map.of(
+                                "type", "object",
+                                "properties", Map.of(
+                                        "request", Map.of(
+                                                "type", "string",
+                                                "description", "Search request."
+                                        )
+                                ),
+                                "required", List.of("request"),
                                 "additionalProperties", false
                         ),
                         "strict", true
