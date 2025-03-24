@@ -4,6 +4,9 @@ import lombok.Getter;
 
 import java.util.Map;
 
+/**
+ * Performs simple math calculations
+ */
 public class MathTool implements BaseTool {
 
     @Override

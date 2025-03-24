@@ -17,6 +17,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Generates overview for largest picture from Mars by sol
+ */
 public class ImageStealerTool implements BaseTool {
 
     private final HttpClient httpClient;
