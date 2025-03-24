@@ -12,7 +12,10 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
-public class HaikuGeneratorTool {
+/**
+ * Generates haiku on user demand
+ */
+public class HaikuGeneratorTool implements BaseTool {
 
     private final HttpClient httpClient;
     private final ObjectMapper mapper;
@@ -24,15 +27,18 @@ public class HaikuGeneratorTool {
         this.mapper = new ObjectMapper();
     }
 
-
-    public String generate(JsonNode jsonNode) {
-        String query = jsonNode.get("query").asText();
-
-        return generate(query);
+    @Override
+    public String execute(Map<String, Object> arguments) {
+        try {
+            String query = String.valueOf(arguments.get("query"));
+            return generateHaiku(query);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     @SneakyThrows
-    private String generate(String query) {
+    private String generateHaiku(String query) {
         //todo: 1. Create a Map for the request body with the following structure:
         //todo:    - "model": Use Model.GPT_4o_MINI.getValue() from your Model enum
         //todo:    - "messages": Create a List of Maps containing:

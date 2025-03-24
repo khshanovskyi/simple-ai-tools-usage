@@ -202,7 +202,7 @@ public class ChatApp {
      * }
      * </pre>
      */
-    private static Map<String, Object> webSearchToolDescription() {
+    private static Map<String, Object> searchToolDescription() {
         //todo: Provide description similar to JSON above.
         //todo: Pay attention that function name is already present in constants (Constant.WEB_SEARCH)
         //todo: Need to implement such tool

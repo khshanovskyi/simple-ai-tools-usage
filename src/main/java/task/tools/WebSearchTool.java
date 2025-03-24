@@ -12,7 +12,10 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
-public class WebSearchTool {
+/**
+ * Performs search in WEB by request
+ */
+public class WebSearchTool implements BaseTool {
 
     private final HttpClient httpClient;
     private final ObjectMapper mapper;
@@ -24,15 +27,14 @@ public class WebSearchTool {
         this.mapper = new ObjectMapper();
     }
 
-    public String search(JsonNode jsonNode) {
-        //todo: 1. Extract the search query from the jsonNode parameter
-        //todo:    - Get the value of the "request" field using jsonNode.get("request")
-        //todo:    - Convert it to a String using asText() method
-
-        //todo: 2. Call the private search(String request) method with the extracted query
-        //todo:    - Return the result of the private search method
-
-        throw new RuntimeException("Not implemented");
+    @Override
+    public String execute(Map<String, Object> arguments) {
+        try {
+            String request = String.valueOf(arguments.get("request"));
+            return search(request);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     @SneakyThrows
@@ -61,5 +63,16 @@ public class WebSearchTool {
         throw new RuntimeException("Not implemented");
     }
 
+
+    //"web_search_options": {
+//            "user_location": {
+//                "type": "approximate",
+//                "approximate": {
+//                    "country": "GB",
+//                    "city": "London",
+//                    "region": "London",
+//                }
+//            }
+//        },
 
 }

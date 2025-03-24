@@ -17,7 +17,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class ImageStealerTool {
+/**
+ * Generates overview for largest picture from Mars by sol
+ */
+public class ImageStealerTool implements BaseTool {
+
     private final HttpClient httpClient;
     private final ObjectMapper mapper;
     private final String openAiApiKey;
@@ -31,16 +35,32 @@ public class ImageStealerTool {
         this.mapper = new ObjectMapper();
     }
 
+    @Override
     @SneakyThrows
-    public String getLargestMarsImageDescription(JsonNode arguments) {
-        int sol = arguments.get("sol").asInt();
-        ImageList imageList = fetchImageList(sol);
+    public String execute(Map<String, Object> arguments) {
         try {
+            int sol = getSol(arguments);
+            ImageList imageList = fetchImageList(sol);
             String largestPictureURL = getLargestPicture(imageList);
+
             return getImageDescription(largestPictureURL);
         } catch (Exception e) {
             return e.getMessage();
         }
+    }
+
+    private int getSol(Map<String, Object> arguments) {
+        Object value = arguments.get("sol");
+        if (value instanceof Number) {
+            return ((Number) value).intValue();
+        } else if (value instanceof String) {
+            try {
+                return Integer.parseInt((String) value);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Invalid numeric value for sol: " + value);
+            }
+        }
+        throw new IllegalArgumentException("Missing or invalid value for sol");
     }
 
     private ImageList fetchImageList(int sol) throws Exception {
