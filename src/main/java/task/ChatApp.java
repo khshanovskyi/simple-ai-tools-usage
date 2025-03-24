@@ -20,8 +20,10 @@ public class ChatApp {
                 Model.GPT_4o,
                 Constant.API_KEY,
                 List.of(
-                        //todo: 1. Provide tool for math simple calculations (ChatApp#generateMathToolDescription())
-                        //todo: 2. Provide tool for extraction NASA largest image description (ChatApp#generateNasaToolStealerDescription())
+                        //todo: 1. Provide tool for math simple calculations (ChatApp#generateMathToolDescription(), already implemented)
+                        //todo: 2. Provide tool for extraction NASA largest image description (ChatApp#generateNasaToolStealerDescription(), Need to implement)
+                        //todo: 3. (Optional) Provide tool for haiku generation (ChatApp#haikuQueryToolDescription(), Need to implement)
+                        //todo: 4. (Optional) Provide tool for WEB search (ChatApp#webSearchToolDescription(), Need to implement)
                 )
         );
 
@@ -144,6 +146,66 @@ public class ChatApp {
     private static Map<String, Object> generateNasaToolStealerDescription() {
         //todo: Provide description similar to JSON above.
         //todo: Pay attention that function name is already present in constants (Constant.NASA_IMG_STEALER)
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * <pre>
+     * {
+     *   "type": "function",
+     *   "function": {
+     *     "name": "nasa_image_stealer",
+     *     "description": "Special tool that super experienced in Haiku generation on the Ukrainian language.",
+     *     "parameters": {
+     *       "type": "object",
+     *       "properties": {
+     *         "query": {
+     *           "type": "string",
+     *           "description": "Description of Haiku that should be generated"
+     *         }
+     *       },
+     *       "required": ["query"],
+     *       "additionalProperties": false
+     *     },
+     *     "strict": true
+     *   }
+     * }
+     * </pre>
+     */
+    private static Map<String, Object> haikuQueryToolDescription() {
+        //todo: Provide description similar to JSON above.
+        //todo: Pay attention that function name is already present in constants (Constant.HAIKU_GENERATOR)
+        //todo: Need to implement such tool
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * <pre>
+     * {
+     *   "type": "function",
+     *   "function": {
+     *     "name": "web_search_tool",
+     *     "description": "Tool for WEB searching",
+     *     "parameters": {
+     *       "type": "object",
+     *       "properties": {
+     *         "request": {
+     *           "type": "string",
+     *           "description": "Search request"
+     *         }
+     *       },
+     *       "required": ["request"],
+     *       "additionalProperties": false
+     *     },
+     *     "strict": true
+     *   }
+     * }
+     * </pre>
+     */
+    private static Map<String, Object> webSearchToolDescription() {
+        //todo: Provide description similar to JSON above.
+        //todo: Pay attention that function name is already present in constants (Constant.WEB_SEARCH)
+        //todo: Need to implement such tool
         throw new RuntimeException("Not implemented");
     }
 }

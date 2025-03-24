@@ -16,4 +16,6 @@ public final class Constant {
 
     public final static String SIMPLE_CALCULATOR = "simple_calculator";
     public final static String NASA_IMG_STEALER = "nasa_image_stealer";
+    public final static String HAIKU_GENERATOR = "haiku_generation_tool";
+    public final static String WEB_SEARCH = "web_search_tool";
 }

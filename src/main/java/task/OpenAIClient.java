@@ -3,18 +3,12 @@ package task;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import task.dto.Message;
 import task.dto.Model;
-import task.dto.Role;
-import task.tools.ImageStealerTool;
-import task.tools.MathTool;
-import task.utils.Constant;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +49,7 @@ public class OpenAIClient {
         //todo: 8. Get `message` as JsonNode
         //todo: 9.1. If tool_calls are present (`finish_reason` is `tool_calls`):
         //todo:      - get JsonNode `tool_calls`
+        //todo:      - add AI message to history
         //todo:      - call processToolCalls(List<Message> messages, JsonNode toolCalls)
         //todo:      - then call recursively `responseWithMessage(List<Message> messages)` (it will provide final response)
         //todo: 9.2. Otherwise return Message with AI response (feel free to use builder)
@@ -104,8 +99,10 @@ public class OpenAIClient {
     private String executeTool(String functionName, JsonNode arguments) {
         //todo: Here we will hardcode the switch that will execute tools
         //todo: Use switch on the functionName:
-        //todo: Case `simple_calculator` -> MathTool.calculateExpression(arguments)
-        //todo: Case `nasa_image_stealer` -> MathTool.calculateExpression(arguments)
+        //todo: Case `simple_calculator` -> MathTool.calculateExpression(arguments) (already implemented)
+        //todo: Case `nasa_image_stealer` -> ImageStealerTool.getLargestMarsImageDescription(arguments) (already implemented)
+        //todo: Case `haiku_generation_tool` -> HaikuGeneratorTool.generate(arguments) (need to implemented)
+        //todo: Case `web_search_tool` -> WebSearchTool.search(arguments) (need to implemented)
         //todo: default case -> throw IllegalArgumentEx with state that `Unknown function` + functionName
         //todo: Use Constants from Constant class instead of magic strings
 
