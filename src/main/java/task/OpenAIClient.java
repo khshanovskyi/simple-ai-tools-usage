@@ -1,14 +1,15 @@
 package task;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import task.dto.ChatCompletion;
+import task.dto.Choice;
+import task.dto.Function;
 import task.dto.Message;
 import task.dto.Model;
 import task.dto.Role;
-import task.tools.HokueGeneratorTool;
+import task.dto.ToolCall;
+import task.tools.HaikuGeneratorTool;
 import task.tools.ImageStealerTool;
 import task.tools.MathTool;
 import task.tools.WebSearchTool;
@@ -17,8 +18,10 @@ import task.utils.Constant;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class OpenAIClient {
     private final ObjectMapper mapper;
@@ -30,7 +33,7 @@ public class OpenAIClient {
     public OpenAIClient(Model model, String apiKey, List<Map<String, Object>> tools) {
         this.model = model;
         this.apiKey = checkApiKey(apiKey);
-        this.tools = tools;
+        this.tools = Objects.nonNull(tools) ? tools : new ArrayList<>();
         this.mapper = new ObjectMapper();
         this.httpClient = HttpClient.newHttpClient();
     }
@@ -43,44 +46,43 @@ public class OpenAIClient {
     }
 
     public Message responseWithMessage(List<Message> messages) throws Exception {
-        ObjectNode request = createRequest(messages);
+        var request = createRequest(messages);
         System.out.println("REQUEST: " + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(request));
         HttpRequest httpRequest = generateRequest(request);
 
         String responseBody = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString()).body();
-        JsonNode responseJson = mapper.readTree(responseBody);
-        System.out.println("RESPONSE: " + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(responseJson));
-        JsonNode choice = responseJson.get("choices").get(0);
-        JsonNode message = choice.get("message");
+        System.out.println("RESPONSE: " + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(responseBody)));
 
-        if (choice.get("finish_reason").asText().equals("tool_calls")) {
-            JsonNode toolCalls = message.get("tool_calls");
-            if (toolCalls != null) {
+        ChatCompletion chatCompletion = mapper.readValue(responseBody, ChatCompletion.class);
+        Choice choice = chatCompletion.choices().getFirst();
+        Message message = choice.message();
+
+        if (choice.finishReason().equals("tool_calls")) {
+            List<ToolCall> toolCalls = message.getToolCalls();
+            if (toolCalls != null && !toolCalls.isEmpty()) {
+                //Add AI message
+                messages.add(message);
+
                 processToolCalls(messages, toolCalls);
                 return responseWithMessage(messages);
             }
         }
+
         return Message.builder()
-                    .role(Role.AI)
-                    .content(message.get("content").asText())
-                    .build();
+                .role(Role.AI)
+                .content(message.getContent())
+                .build();
     }
 
-    private ObjectNode createRequest(List<Message> messages) {
-        ObjectNode request = mapper.createObjectNode();
-        request.put("model", this.model.getValue());
-        ArrayNode messageArray = mapper.valueToTree(messages);
-        request.set("messages", messageArray);
-
-        if (tools != null && !tools.isEmpty()) {
-            ArrayNode toolsArray = mapper.valueToTree(tools);
-            request.set("tools", toolsArray);
-        }
-
-        return request;
+    private Map<String, Object> createRequest(List<Message> messages) {
+        return Map.of(
+                "model", this.model.getValue(),
+                "messages", messages,
+                "tools", this.tools
+        );
     }
 
-    private HttpRequest generateRequest(ObjectNode requestBody) throws JsonProcessingException {
+    private HttpRequest generateRequest(Map<String, Object> requestBody) throws JsonProcessingException {
         return HttpRequest.newBuilder()
                 .uri(Constant.OPEN_AI_API_URI)
                 .header("Authorization", "Bearer " + apiKey)
@@ -89,46 +91,35 @@ public class OpenAIClient {
                 .build();
     }
 
-    private void processToolCalls(List<Message> messages, JsonNode toolCalls) throws JsonProcessingException {
-        for (JsonNode toolCall : toolCalls) {
+    private void processToolCalls(List<Message> messages, List<ToolCall> toolCalls) {
+        for (ToolCall toolCall : toolCalls) {
+
+            String id = toolCall.id();
+            Function function = toolCall.function();
+
+            String functionName = function.name();
+            String result = executeTool(functionName, function.arguments());
+
             messages.add(
                     Message.builder()
-                            .role(Role.AI)
-                            .content(mapper.writeValueAsString(toolCall))
+                            .role(Role.TOOL)
+                            .name(functionName)
+                            .toolCallId(id)
+                            .content(result)
                             .build()
-            );
-        }
-
-        for (JsonNode toolCall : toolCalls) {
-
-            String id = toolCall.get("id").asText();
-            JsonNode functionNode = toolCall.get("function");
-            String functionName = functionNode.get("name").asText();
-            JsonNode arguments = mapper.readTree(functionNode.get("arguments").asText());
-
-            String result = executeTool(functionName, arguments);
-
-            messages.add(
-                    Message.builder()
-                    .role(Role.FUNCTION)
-                    .name(functionName)
-                    .toolCallId(id)
-                    .content(result)
-                    .build()
             );
 
             System.out.println("FUNCTION '" + functionName + "': " + result);
         }
     }
 
-    private String executeTool(String functionName, JsonNode arguments) {
+    private String executeTool(String functionName, Map<String, Object> arguments) {
         return switch (functionName) {
-            case Constant.SIMPLE_CALCULATOR -> MathTool.calculateExpression(arguments);
-            case Constant.NASA_IMG_STEALER -> new ImageStealerTool(apiKey).getLargestMarsImageDescription(arguments);
-            case Constant.HAIKU_GENERATOR -> new HokueGeneratorTool(apiKey).generateHokue(arguments);
-            case Constant.WEB_SEARCH -> new WebSearchTool(apiKey).search(arguments);
-            default -> throw new IllegalArgumentException("Unknown function: " + functionName);
+            case Constant.SIMPLE_CALCULATOR -> new MathTool().execute(arguments);
+            case Constant.NASA_IMG_STEALER -> new ImageStealerTool(apiKey).execute(arguments);
+            case Constant.HAIKU_GENERATOR -> new HaikuGeneratorTool(apiKey).execute(arguments);
+            case Constant.WEB_SEARCH -> new WebSearchTool(apiKey).execute(arguments);
+            default -> "Unknown function: " + functionName;
         };
     }
-
 }

@@ -9,7 +9,7 @@ public enum Role {
     SYSTEM("system"),
     USER("user"),
     AI("assistant"),
-    FUNCTION("function");
+    TOOL("tool");
 
     private final String value;
 

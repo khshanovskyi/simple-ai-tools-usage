@@ -9,11 +9,10 @@ import task.utils.Constant;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
-public class WebSearchTool {
+public class WebSearchTool implements BaseTool {
 
     private final HttpClient httpClient;
     private final ObjectMapper mapper;
@@ -21,21 +20,23 @@ public class WebSearchTool {
 
     public WebSearchTool(String openAiApiKey) {
         this.openAiApiKey = openAiApiKey;
-        this.httpClient = HttpClient.newBuilder()
-                .followRedirects(HttpClient.Redirect.ALWAYS)
-                .connectTimeout(Duration.ofSeconds(10))
-                .build();
+        this.httpClient = HttpClient.newBuilder().build();
         this.mapper = new ObjectMapper();
     }
 
-    public String search(JsonNode jsonNode) {
-        String query = jsonNode.get("request").asText();
+    @Override
+    public String execute(Map<String, Object> arguments) {
+        try {
+            String request = String.valueOf(arguments.get("request"));
 
-        return searchInWeb(query);
+            return search(request);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     @SneakyThrows
-    private String searchInWeb(String request) {
+    private String search(String request) {
         Map<String, Object> requestBody = Map.of(
                 "model", Model.GPT_4o_SEARCH.getValue(),
                 "web_search_options", Map.of(),

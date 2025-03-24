@@ -22,7 +22,7 @@ public class ChatApp {
                 List.of(
                         generateMathToolDescription(),
                         generateNasaToolStealerDescription(),
-                        hokueQueryToolDescription(),
+                        haikuQueryToolDescription(),
                         searchToolDescription()
                 )
         );
@@ -165,7 +165,30 @@ public class ChatApp {
         );
     }
 
-    private static Map<String, Object> hokueQueryToolDescription() {
+    /**
+     * <pre>
+     * {
+     *   "type": "function",
+     *   "function": {
+     *     "name": "nasa_image_stealer",
+     *     "description": "Special tool that super experienced in Haiku generation on the Ukrainian language.",
+     *     "parameters": {
+     *       "type": "object",
+     *       "properties": {
+     *         "query": {
+     *           "type": "string",
+     *           "description": "Description of Haiku that should be generated"
+     *         }
+     *       },
+     *       "required": ["query"],
+     *       "additionalProperties": false
+     *     },
+     *     "strict": true
+     *   }
+     * }
+     * </pre>
+     */
+    private static Map<String, Object> haikuQueryToolDescription() {
         return Map.of(
                 "type", "function",
                 "function", Map.of(
@@ -187,6 +210,29 @@ public class ChatApp {
         );
     }
 
+    /**
+     * <pre>
+     * {
+     *   "type": "function",
+     *   "function": {
+     *     "name": "web_search_tool",
+     *     "description": "Tool for WEB searching",
+     *     "parameters": {
+     *       "type": "object",
+     *       "properties": {
+     *         "request": {
+     *           "type": "string",
+     *           "description": "Search request"
+     *         }
+     *       },
+     *       "required": ["request"],
+     *       "additionalProperties": false
+     *     },
+     *     "strict": true
+     *   }
+     * }
+     * </pre>
+     */
     private static Map<String, Object> searchToolDescription() {
         return Map.of(
                 "type", "function",
