@@ -68,10 +68,7 @@ public class OpenAIClient {
             }
         }
 
-        return Message.builder()
-                .role(Role.AI)
-                .content(message.getContent())
-                .build();
+        return message;
     }
 
     private Map<String, Object> createRequest(List<Message> messages) {
